@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.itbank.repository.GoodsDAO">
+	                 	
+	<insert id="insert" parameterType="goods">
+		insert into lckgoods(name, image, ticketCount, productCount)
+			values(#{name}, #{image}, #{ticketCount}, #{productCount})
+	</insert>
+	
+	<select id="selectList">
+		select * from lckgoods order by idx desc
+	</select>
+	
+	<select id="selectOne">
+		select * from lckgoods where idx = #{idx}
+	</select>
+	
+	<delete id="delete">
+		delete from lckgoods where idx = #{idx}
+	</delete>
+	
+	<update id="increase">
+		update lckgoods set productCount = productCount + 1
+			where idx = #{idx}
+	</update>
+	
+	<update id="decrease">
+		update lckgoods set productCount = productCount - 1
+			where idx = #{idx}
+	</update>
+	
+    <update id="exchange">
+        update lckgoods 
+			set 
+			    productCount = productCount - 1,
+			    saled = saled + 1
+			where 
+			    idx = #{idx} 
+			    and productCount > 0
+    </update>
+
+</mapper>
+

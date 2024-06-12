@@ -1,0 +1,181 @@
+@charset "UTF-8";
+	
+	body {
+        margin: 0;
+        padding: 0;
+        background-color: #eee;
+    }
+    ul, li {
+        list-style: none;
+        margin: 0;
+        color: black;
+    }
+    a {
+        color: black;
+        text-decoration: none;
+    }
+    h1, h2, h3, h4, h5 {
+	    color: black;
+    }
+    @font-face {
+        font-family: 'SokchoBadaBatang';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_1@1.0/SokchoBadaBatang.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+    }
+    .font-sokcho {
+        font-family: 'SokchoBadaBatang', sans-serif;
+    }
+    .hidden {
+        display: none;
+    }
+    
+    .flex {
+        display: flex;
+    }
+    .header_nav {
+        width: 100%;
+        background-color: #151618;
+        margin: 0 auto;
+    }
+    .inner_con {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    .sub_menu {
+      display: flex;  
+      width: auto;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 0 50px;
+    }
+    .sub_menu_li {
+        display: inline-block;
+        color: white;
+        font-size: 16px;
+        padding: 15px 0;
+        text-align: center;
+    }
+    .sub_menu_li > a {
+        color: white;
+    }
+    .sub_nav {
+        display: none;
+    }
+	.sub_nav > li {
+		color: white;
+	}
+    .gnb_dep {
+    	display: none;
+        position: absolute;
+        top: 50px;
+        left: 50%;
+        margin-left: -75px;
+        width: 150px;
+        overflow: hidden;
+        transition: all 0.5s;
+        padding: 25px 0;
+        height: 0;
+        opacity: 0;
+        background: #000;
+    }
+    .header_img {
+        width: 100%;
+        height: 200px;
+        background-image: url(
+            https://blog.kakaocdn.net/dn/ulsEt/btqEkN33gv9/G8EcyCNGsk4Y41UPDiZ22k/img.jpg
+        );
+        background-position: 50% 20%;
+        overflow: hidden;
+        position: relative;
+    }
+	.header_profile {
+        display: flex;
+        justify-content: space-between;
+        margin: auto;
+        width: 180px;
+        align-items: center;
+    }
+    .header_main_nav {
+        background-color: #151618;
+        display: flex;
+        
+    }
+    .header_top_logo {
+        padding: 5px;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+    .header_top_main {
+        color: white;
+        align-items: center;
+        text-align: center;
+        margin: auto;
+    }
+    
+    .header_profile_img {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+    }
+    .main {
+        width: 1380px;
+        /* border: 2px solid red; */
+        /* top: -40px; */
+        height: 4000px;
+        position: relative;
+        margin: auto;
+        
+    }
+    
+    #modal > .content {
+		width: 750px;
+		background-color: white;
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		box-shadow: 20px 20px 0px black;
+		z-index: 3;
+		transition-duration: 0.5s;
+		border-radius: 25px;
+		
+		display: flex;
+		flex-direction: column;
+ 		justify-content: center; 
+ 		align-items: center; 
+ 		overflow: auto;
+	}
+	#modal > .overlay {
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 2;
+	}
+	#modal.hidden > .content {
+  		top: 150%;   
+		transition-duration: unset;
+	}
+	#modal.hidden > .overlay {
+		display: none;
+	}
+	
+	.clol {
+		width: 150px;
+        height: 150px;
+        overflow: hidden;
+        position: relative;
+	}
+	.lol {
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -40%);
+	}
+	
+	
+    

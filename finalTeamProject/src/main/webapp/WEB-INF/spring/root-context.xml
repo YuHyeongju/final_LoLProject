@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+		
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.1.100:1521:xe"></property>
+		<property name="username" value="c##itbank"></property>
+		<property name="password" value="it"></property>
+	</bean>	
+	
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+		<constructor-arg ref="hikariConfig"/>
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" >
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<!-- 
+		classpath ↓ 이동하는 단축키:
+			src/main/java		 .java 형식의 자바 소스코드를 배치하는 위치
+			src/main/resources	 .java 가 아닌 기타 형식의 파일(xml, properties 등 )을  배치하는 위치 
+	 -->
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis/config.xml"></property>
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:mybatis/goods-mapper.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"/>
+	</bean>
+		
+	<context:component-scan base-package="com.itbank.service"/>
+	<context:component-scan base-package="com.itbank.component"/>
+	<context:component-scan base-package="com.itbank.model"/>
+	<context:component-scan base-package="com.itbank.exception"/>
+	
+	<context:component-scan base-package="com.itbank.repository"/>
+	<!-- 지정한 패키지에서 인터페이스 형태의 DAO를 스캔한다 -->
+	<mybatis-spring:scan base-package="com.itbank.repository"/>
+	<!-- 지정한 패키지에서 인터페이스 형태의 DAO를 스캔한다 -->
+	
+	
+	
+</beans>
