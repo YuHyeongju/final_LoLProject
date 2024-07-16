@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itbank.repository.MatchPredictionDAO">
+	
+	<select id="dupCheck">
+		select * from lckmatchprediction where gameIdx = #{gameIdx} and userid = #{userid}
+	</select>
+	
+	<insert id="insertPrediction">
+		insert into lckmatchprediction (gameIdx,bettingTeam,userid) values (#{gameIdx},#{bettingTeam},#{userid})
+	</insert>
+	
+	<update id="updatePrediction">
+		update lckmatchprediction set bettingTeam = #{bettingTeam} where gameIdx = #{gameIdx} and userid = #{userid}
+	</update>
+	
+	<select id="userPrediction">
+		select * from lckmatchprediction where userid = #{userid}
+	</select>
+</mapper>
+

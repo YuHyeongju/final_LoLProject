@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itbank.repository.MemberDAO">
+
+	<select id="dupCheck">
+		select count(*) from lckMember where userid = #{userid}
+	</select>
+	
+	<select id="login">
+		select * from lckMember where userid = #{userid} and userpw = #{userpw}
+	</select>
+	
+	<insert id="join">
+		insert into lckMember 
+		(grade,locked,userid,userpw,nickName,email,favoriteTeam,mainPosition,subPosition,profile)
+		 values (#{grade},#{locked},#{userid},#{userpw},#{nickName},#{email},#{favoriteTeam},#{mainPosition},#{subPosition},#{profile})
+	</insert>
+
+	<select id="findMember">
+		select * from lckmember where userid = #{userid} and email = #{email}
+	</select>
+	
+	<update id="updatePass">
+		update lckMember set userpw = #{userpw} where userid = #{userid}
+	</update>
+	
+	<update id="updateNewPass">
+		update lckMember set userpw = #{newPassword} where userid = #{userid}
+	</update>
+	
+	<update id="denyNotice">
+		update lckMember set denyNotice = 1 - denyNotice,denyTime = sysdate where userid = #{userid}
+	</update>
+	
+	<insert id="addLoginInfo">
+		insert into lcklogininfo (userid) values (#{userid})
+	</insert>
+	
+	<select id="getLastLog">
+		select * from lckloginInfo where userid = #{userid} order by loginTime desc FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<update id="givePoinst">
+		update lckmember set point = point + 100 where userid = #{userid}
+	</update>
+	
+	<update id="modifyProfile">
+		update lckmember set nickName = #{nickName}, profile = #{profile} where userid = #{userid}
+	</update>
+		
+	<update id="modifyNickNameOnly">
+		update lckmember set nickName = #{nickName} where userid = #{userid}
+	</update>
+	
+<!-- 민서 -->
+	<select id="getMemberGoodsList">
+		SELECT * FROM lckMemberGoods order by idx
+	</select>
+	
+	<select id="getMemberGoodsListByUserid">
+		SELECT mg.idx AS idx,
+		mg.goodsIdx AS goodsIdx,
+		mg.userid AS userid,
+		mg.count AS count,
+		g.name AS goodsName,
+		g.image AS goodsImage
+		FROM lckMemberGoods mg 
+		JOIN lckGoods g ON mg.goodsIdx = g.idx 
+		WHERE mg.userid = #{userid}
+	</select>
+	
+	<select id="selectOne">
+		select * from lckgoods where idx = #{goodsIdx}
+	</select>
+	
+	<select id="selectGoods">
+		SELECT name, image FROM lckGoods WHERE idx = #{goodsIdx}
+	</select>
+	
+	<select id="selectGoodsByIdx">
+		SELECT * FROM lckGoods WHERE idx = #{idx}
+	</select>
+	
+	<update id="productinfo">
+		update lckgoods set productCount = productCount - 1 where idx = #{product}
+	</update>
+	
+	<update id="updateTickets">
+		update lckmember set ticket = ticket - #{ticket} where idx = #{memberIdx}
+	</update>
+	
+	<update id="updatesaled">
+		update lckgoods set saled = saled + 1 where idx = #{idx}
+	</update>
+	
+	<insert id="insertOrUpdateMemberGoods">
+		MERGE INTO lckMemberGoods dst 
+		USING (SELECT #{goodsIdx} AS goodsIdx, #{userid} AS userid FROM dual) src 
+		ON (dst.goodsIdx = src.goodsIdx AND dst.userid = src.userid) 
+		WHEN MATCHED THEN 
+		UPDATE SET dst.count = dst.count + 1
+		WHEN NOT MATCHED THEN
+		INSERT (goodsIdx, userid, count) VALUES (src.goodsIdx, src.userid, 1)
+	</insert>
+	
+	<select id="getUserProductList">
+		select ms.count,(select name from lckgoods where idx = ms.goodsidx) as goodsName,(select image from lckgoods where idx = ms.goodsidx) as goodsImage
+		 from lckmembergoods ms where userid = #{userid}
+	</select>
+	
+	<update id="updateNotice">
+		update lckmember set denyNotice = 1 - denyNotice where userid = #{userid}
+	</update>
+	
+	<insert id="noImgJoin">
+		insert into lckMember (grade,locked,userid,userpw,nickName,email,favoriteTeam,mainPosition,subPosition) values (#{grade},#{locked},#{userid},#{userpw},#{nickName},#{email},#{favoriteTeam},#{mainPosition},#{subPosition})
+	</insert>
+	
+</mapper>
+
