@@ -22,10 +22,10 @@
 #### Tool: Eclipse, SqlDeveloper, Selenium(Python)
 
 #### 요구사항 명세서 
-
+![요구사항](https://github.com/YuHyeongju/final_LoLProject/blob/main/shTeamProject/src/main/webapp/resources/image/Project/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD.jpg)
 
 #### ERD
-
+![최종프로젝트 ERD](https://github.com/YuHyeongju/final_LoLProject/blob/main/shTeamProject/src/main/webapp/resources/image/Project/%EC%B5%9C%EC%A2%85%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%20ERD.png)
 ---
 
 멤버별 역할
